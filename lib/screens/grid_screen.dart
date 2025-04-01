@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wp_integration/data/repository.dart';
 import 'package:wp_integration/models/wp_posts.dart';
-import 'package:wp_integration/routes/app_routes.dart';
+import 'package:wp_integration/widgets/post_grid.dart';
 
 class GridScreen extends StatefulWidget {
   const GridScreen({super.key});
@@ -16,6 +16,7 @@ class _GridScreenState extends State<GridScreen> {
   Repository repository = Repository();
 
   int _crossAxisCount = 2;
+  Icon gridIcon = Icon(Icons.grid_on);
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _GridScreenState extends State<GridScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFE0E0E0),
       appBar: AppBar(
         backgroundColor: Colors.teal,
         actions: [
@@ -42,26 +44,22 @@ class _GridScreenState extends State<GridScreen> {
               setState(() {
                 // Cambiamos el valor entre 1 y 2
                 _crossAxisCount = (_crossAxisCount == 2) ? 1 : 2;
+                gridIcon =
+                    (_crossAxisCount == 2)
+                        ? Icon(Icons.grid_on)
+                        : Icon(Icons.list);
               });
             },
-            icon: Icon(Icons.grid_on),
+            icon: gridIcon,
           ),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text("Todos los posts de Wordpress", style: TextStyle(fontSize: 24)),
-          SizedBox(height: 20),
-          Expanded(
-            child: PostsLists(
-              wpAllPosts: _wpAllPosts,
-              crossAxisCount: _crossAxisCount,
-            ),
-          ),
-        ],
-      )
+      body: Expanded(
+        child: PostsLists(
+          wpAllPosts: _wpAllPosts,
+          crossAxisCount: _crossAxisCount,
+        ),
+      ),
     );
   }
 }
@@ -86,7 +84,7 @@ class PostsLists extends StatelessWidget {
 
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-            child: CircularProgressIndicator(color: Colors.tealAccent),
+            child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
           return Text("Hubo un error: ${snapshot.error}");
@@ -100,79 +98,6 @@ class PostsLists extends StatelessWidget {
           return Text("Hubo un error");
         }
       },
-    );
-  }
-}
-
-class PostsGrid extends StatefulWidget {
-  const PostsGrid({
-    super.key,
-    required this.count,
-    required this.list,
-    required this.crossAxisCount,
-  });
-
-  final int count;
-  final List<WpPostResponse> list;
-  final int crossAxisCount;
-
-  @override
-  State<PostsGrid> createState() => _PostsGridState();
-}
-
-class _PostsGridState extends State<PostsGrid> {
-  @override
-  Widget build(BuildContext context) {
-    return GridView.count(
-      crossAxisCount: widget.crossAxisCount,
-      padding: EdgeInsets.all(8),
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      childAspectRatio: 5 / 3,
-      children: List.generate(widget.count, (index) {
-        return InkWell(
-          onTap: () {
-            Navigator.pushNamed(
-              context,
-              AppRoutes.postDetail,
-              arguments: widget.list[index],
-            );
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.black38,
-              borderRadius: BorderRadius.circular(8),
-              image: DecorationImage(
-                image: NetworkImage(widget.list[index].media.full),
-                fit: BoxFit.cover,
-              ),
-            ),
-            alignment: Alignment.center,
-            child: Container(
-              padding: EdgeInsets.only(left: 4, right: 4),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.brown,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black12,
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  overflow: TextOverflow.ellipsis,
-                  widget.list[index].title,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ),
-        );
-      }),
     );
   }
 }
