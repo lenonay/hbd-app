@@ -57,11 +57,16 @@ class WpPostResponse {
         final media = mediaList.first;
         final sizes = media['media_details']['sizes'] as Map<String, dynamic>?;
 
+        final thumbnail = sizes?['thumbnail']?['source_url'] ?? '';
+        final medium = sizes?['medium']?['source_url'];
+        final large = sizes?['large']?['source_url'];
+        final full = media['source_url'];
+
         return MediaDetails(
-          thumbnail: sizes?['thumbnail']['source_url'],
-          medium: sizes?['medium']?['source_url'],
-          full: media['source_url'],
-          large: sizes?['medium_large']['source_url'],
+          thumbnail: thumbnail,
+          medium: medium,
+          large: large,
+          full: full,
         );
       }
     }
