@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wp_integration/data/repository.dart';
-import 'package:wp_integration/models/wp_all_posts_response.dart';
-import 'package:wp_integration/models/wp_post_response.dart';
+import 'package:wp_integration/models/wp_posts.dart';
 import 'package:wp_integration/routes/app_routes.dart';
 
 class GridScreen extends StatefulWidget {
@@ -35,8 +34,9 @@ class _GridScreenState extends State<GridScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text("Wordpress integration v2"),
         actions: [
+          IconButton(onPressed: _fetchPosts, icon: Icon(Icons.refresh)),
+
           IconButton(
             onPressed: () {
               setState(() {
@@ -61,12 +61,7 @@ class _GridScreenState extends State<GridScreen> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _fetchPosts,
-        backgroundColor: Colors.teal,
-        child: Icon(Icons.refresh, color: Colors.black),
-      ),
+      )
     );
   }
 }

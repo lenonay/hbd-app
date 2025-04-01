@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:wp_integration/data/repository.dart';
-import 'package:wp_integration/models/wp_post_response.dart';
+import 'package:wp_integration/models/wp_posts.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
