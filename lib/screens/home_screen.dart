@@ -1,8 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:wp_integration/core/network/dio_client.dart';
 import 'package:wp_integration/routes/app_routes.dart';
+import 'package:wp_integration/widgets/route_button.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  void _handleLogout(BuildContext context) async {
+    final dioClient = DioClient();
+    final hadAuth = await dioClient.hasTokenCookie();
+
+    try {
+      dioClient.logout();
+
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            hadAuth
+                ? "Sesión cerrada correctamente"
+                : "No ha iniciado sesión previamente",
+            style: snackBarTextStyle(),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: hadAuth ? Colors.lightBlueAccent : Colors.blueGrey,
+        ),
+      );
+    } catch (err) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            "Error al cerrar sesión ❌",
+            style: snackBarTextStyle(),
+            textAlign: TextAlign.center,
+          ),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  TextStyle snackBarTextStyle() {
+    return TextStyle(fontSize: 22, color: Colors.white70);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,40 +53,49 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            routeButton(context, AppRoutes.gridScreen, "Todos los posts"),
-            routeButton(
-              context,
-              AppRoutes.dividedScreen,
-              "Noticias e Información",
-            ),
+            accountButtons(context),
+            SizedBox(height: 30),
+            postsButtons(context),
           ],
         ),
       ),
     );
   }
 
-  Padding routeButton(BuildContext context, String route, String title) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: () {
-          Navigator.pushNamed(context, route);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.teal,
-            boxShadow: [
-              BoxShadow(color: Colors.white30, spreadRadius: 2, blurRadius: 7),
-            ],
-          ),
-          padding: EdgeInsets.all(10),
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
+  Column postsButtons(BuildContext context) {
+    return Column(
+      children: [
+        RouteButton(
+          context: context,
+          route: AppRoutes.gridScreen,
+          title: "Todos los posts",
         ),
-      ),
+        RouteButton(
+          context: context,
+          route: AppRoutes.dividedScreen,
+          title: "Noticias e Información",
+        ),
+      ],
+    );
+  }
+
+  Row accountButtons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RouteButton(
+          context: context,
+          route: AppRoutes.loginFormScreen,
+          title: "Iniciar Sesión",
+        ),
+        RouteButton(
+          context: context,
+          title: "Cerrar Sesión",
+          onTap: () {
+            _handleLogout(context);
+          },
+        ),
+      ],
     );
   }
 }

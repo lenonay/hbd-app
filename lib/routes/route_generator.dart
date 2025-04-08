@@ -6,6 +6,7 @@ import 'package:wp_integration/screens/divided_screen.dart';
 import 'package:wp_integration/screens/grid_screen.dart';
 import 'package:wp_integration/screens/home_screen.dart';
 import 'package:wp_integration/screens/post_detail_screen.dart';
+import 'package:wp_integration/screens/login_form_screen.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -29,7 +30,10 @@ class RouteGenerator {
         } else {
           return _errorRoute();
         }
-        
+
+      case AppRoutes.loginFormScreen:
+        return MaterialPageRoute(builder: (_) => LoginFormScreen());
+
       default:
         return _errorRoute();
     }

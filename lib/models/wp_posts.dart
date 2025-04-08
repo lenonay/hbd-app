@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:html/parser.dart';
 import 'package:http/http.dart' as http;
 
@@ -58,6 +59,9 @@ class WpPostResponse {
     // hacemos la peticion de los archivos adjutnos
     final response = await http.get(
       Uri.parse('${Env.baseApi}/media?parent=$postId'),
+      headers: {
+        HttpHeaders.authorizationHeader: Env.apiToken
+      }
     );
 
     if (response.statusCode == 200) {
@@ -67,16 +71,25 @@ class WpPostResponse {
         final media = mediaList.first;
         final sizes = media['media_details']['sizes'] as Map<String, dynamic>?;
 
-        final thumbnail = sizes?['thumbnail']?['source_url'] ?? '';
-        final medium = sizes?['medium']?['source_url'];
-        final large = sizes?['large']?['source_url'];
-        final full = media['source_url'];
+        final thumbnail =
+            sizes?['thumbnail']?['source_url'] ?? Env.dfImgThumbnail;
+        final medium = sizes?['medium']?['source_url'] ?? Env.dfImgMedium;
+        final large = sizes?['large']?['source_url'] ?? Env.dfImgLarge;
+        final full = media['source_url'] ?? Env.dfImgFull;
 
         return MediaDetails(
           thumbnail: thumbnail,
           medium: medium,
           large: large,
           full: full,
+        );
+      } else {
+        // En caso de que no haya adjuntos que salgan
+        return MediaDetails(
+          thumbnail: Env.dfImgThumbnail,
+          medium: Env.dfImgMedium,
+          large: Env.dfImgLarge,
+          full: Env.dfImgFull,
         );
       }
     }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:wp_integration/models/wp_category_response.dart';
 import 'package:wp_integration/models/wp_posts.dart';
@@ -8,7 +9,10 @@ import 'package:wp_integration/data/env.dart';
 
 class Repository {
   Future<WpPostResponse?> fetchWpPostInfo(String id) async {
-    final response = await http.get(Uri.parse("${Env.baseApi}/posts/$id"));
+    final response = await http.get(
+      Uri.parse("${Env.baseApi}/posts/$id"),
+      headers: {HttpHeaders.authorizationHeader: Env.apiToken},
+    );
 
     if (response.statusCode == 200) {
       var decodedJson = jsonDecode(response.body);
@@ -26,7 +30,10 @@ class Repository {
   }
 
   Future<WpAllPostsResponse?> fetchAllPosts() async {
-    final response = await http.get(Uri.parse("${Env.baseApi}/posts"));
+    final response = await http.get(
+      Uri.parse("${Env.baseApi}/posts"),
+      headers: {HttpHeaders.authorizationHeader: Env.apiToken},
+    );
 
     if (response.statusCode == 200) {
       var decodedJson = jsonDecode(response.body);
@@ -41,6 +48,7 @@ class Repository {
     // Hacemos la petición para recuperar el id de la categoría
     final categoryResponse = await http.get(
       Uri.parse("${Env.baseApi}/categories?slug=$categorySlug"),
+      headers: {HttpHeaders.authorizationHeader: Env.apiToken},
     );
 
     // Si hubo un fallo salimos con error
@@ -59,6 +67,7 @@ class Repository {
     // Hacemos la petición a la API con el ID de la categoría que estabamos buscando
     final postFilteredResponse = await http.get(
       Uri.parse("${Env.baseApi}/posts?categories=${categoryInfo.id}"),
+      headers: {HttpHeaders.authorizationHeader: Env.apiToken},
     );
 
     // Si salio mal la petición devolvemos null

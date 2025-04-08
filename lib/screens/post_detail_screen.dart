@@ -26,9 +26,9 @@ class PostDetailScreen extends StatelessWidget {
                         color: Colors.black12,
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 0)
-                      )
-                    ]
+                        offset: Offset(0, 0),
+                      ),
+                    ],
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
@@ -37,7 +37,14 @@ class PostDetailScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Text(post.content, style: TextStyle(fontSize: 24)),
+              Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Text(
+                  post.content,
+                  style: TextStyle(fontSize: 24),
+                  textAlign: TextAlign.justify,
+                ),
+              ),
             ],
           ),
         ),
