@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wp_integration/data/posts_repository.dart';
 import 'package:wp_integration/data/repository.dart';
 import 'package:wp_integration/models/wp_posts.dart';
 import 'package:wp_integration/widgets/post_grid.dart';
@@ -14,6 +15,7 @@ class _GridScreenState extends State<GridScreen> {
   Future<WpAllPostsResponse?>? _wpAllPosts;
 
   Repository repository = Repository();
+  PostsRepository repository2 = PostsRepository();
 
   int _crossAxisCount = 2;
   Icon gridIcon = Icon(Icons.grid_on);
@@ -26,7 +28,7 @@ class _GridScreenState extends State<GridScreen> {
 
   void _fetchPosts() {
     setState(() {
-      _wpAllPosts = repository.fetchAllPosts();
+      _wpAllPosts = repository2.fetchAllPosts();
     });
   }
 
@@ -54,11 +56,15 @@ class _GridScreenState extends State<GridScreen> {
           ),
         ],
       ),
-      body: Expanded(
-        child: PostsLists(
-          wpAllPosts: _wpAllPosts,
-          crossAxisCount: _crossAxisCount,
-        ),
+      body: Column(
+        children: [
+          Expanded(
+            child: PostsLists(
+              wpAllPosts: _wpAllPosts,
+              crossAxisCount: _crossAxisCount,
+            ),
+          ),
+        ],
       ),
     );
   }

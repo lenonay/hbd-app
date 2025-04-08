@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:wp_integration/data/env.dart';
+import 'package:wp_integration/data/posts_repository.dart';
 import 'package:wp_integration/data/repository.dart';
 import 'package:wp_integration/models/wp_posts.dart';
 import 'package:wp_integration/widgets/post_grid.dart';
@@ -15,6 +17,7 @@ class _DividedScreenState extends State<DividedScreen> {
   Future<WpAllPostsResponse?>? _wpInfoPosts;
 
   Repository repository = Repository();
+  PostsRepository repository2 = PostsRepository();
 
   int crossAxisCount = 2;
   Icon gridIcon = Icon(Icons.grid_on);
@@ -27,8 +30,8 @@ class _DividedScreenState extends State<DividedScreen> {
 
   void _fetchPosts() {
     setState(() {
-      _wpInfoPosts = repository.fetchAllCategoryPosts("informacion");
-      _wpNewsPosts = repository.fetchAllCategoryPosts("noticias");
+      _wpInfoPosts = repository2.fetchAllCategoryPosts(Env.infoID);
+      _wpNewsPosts = repository2.fetchAllCategoryPosts(Env.noticiasID);
     });
   }
 

@@ -8,4 +8,6 @@ class Env {
   static final String dfImgLarge = dotenv.env["DF_IMG_LARGE"]!;
   static final String dfImgMedium = dotenv.env["DF_IMG_MEDIUM"]!;
   static final String dfImgThumbnail = dotenv.env["DF_IMG_THUMBNAIL"]!;
+  static final String noticiasID = dotenv.env["NOTICIAS"]!;
+  static final String infoID = dotenv.env["INFO"]!;
 }
