@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '/routes.dart';
 
-class UnAuthMessage extends StatelessWidget {
-  const UnAuthMessage({super.key});
+class UnAuthScreen extends StatelessWidget {
+  const UnAuthScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -50,14 +50,14 @@ class UnAuthMessage extends StatelessWidget {
                 textStyle: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  shadows: 
-                [
-                  Shadow(
-                    color: Colors.white,
-                    blurRadius: 8,
-                    offset: Offset(0, 0)
-                  )
-                ]),
+                  shadows: [
+                    Shadow(
+                      color: Colors.white,
+                      blurRadius: 8,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
               ),
               onPressed: () {
                 Navigator.pushReplacementNamed(context, Routes.login);

@@ -7,7 +7,7 @@ class AppColors {
   static const neutral100 = Color(0xFFF8F4E3); // #f8f4e3
   static const neutral200 = Color(0xFFE5DFC5); // #e5dfc5
   static const neutral300 = Color(0xFFC4BDA8); // #c4bda8
-   // Neutrales oscuros para texto
+  // Neutrales oscuros para texto
   static const neutral700 = Color(0xFF616161); // gris oscuro
   static const neutral800 = Color(0xFF424242); // gris más oscuro
   static const neutral900 = Color(0xFF212121); // casi negro
@@ -36,75 +36,116 @@ class AppColors {
   // Sombras (alpha al principio)
   static const shadowBlack = Color(0x30000000); // #00000030
   static const shadowPrimary = Color(0x30A87D56); // #a87d5630
+  static const textOnPrimary = Color(
+    0xFF2D2216,
+  ); // Contraste mejorado para primary
 }
 
-/// Crea un ThemeData que aproveche tu paleta
 final ThemeData appTheme = ThemeData(
   useMaterial3: true,
 
-  // Basicos
-  scaffoldBackgroundColor: AppColors.bg,
-  primaryColor: AppColors.primary,
-  highlightColor: AppColors.highlight,
-
-  // El nuevo sistema de color
   colorScheme: ColorScheme.light(
-    primary: AppColors.primaryTint40,
-    onPrimary: AppColors.textOnPrimaryAcc,
+    // Corregir esquema de color principal
+    primary: AppColors.primary,
+    onPrimary: AppColors.textOnPrimary, // Nuevo color con mejor contraste
     primaryContainer: AppColors.primaryTint20,
     secondary: AppColors.secondary,
-    onSecondary: AppColors.bg,
+    onSecondary: AppColors.neutral900, // Mejor contraste
     secondaryContainer: AppColors.secondaryAcc,
     surface: AppColors.neutral100,
-    onSurface: AppColors.neutral300,
+    onSurface: AppColors.neutral900,
     error: AppColors.alert,
     onError: Colors.white,
     shadow: AppColors.shadowBlack,
   ),
 
-  // Tipografías
-  textTheme: TextTheme(
-    bodyLarge: TextStyle(color: AppColors.neutral900),
-    bodyMedium: TextStyle(color: AppColors.neutral900),
-    bodySmall: TextStyle(color: AppColors.neutral900),
-    titleLarge: TextStyle(color: AppColors.primary),
-    titleMedium: TextStyle(color: AppColors.primaryShade20),
+  // Añadir tema específico para AppBar
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.primary,
+    titleTextStyle: TextStyle(
+      color: AppColors.textOnPrimary,
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.15,
+    ),
+    iconTheme: IconThemeData(color: AppColors.textOnPrimary),
+    elevation: 2,
+    shadowColor: AppColors.shadowPrimary,
   ),
 
-  // ElevatedButton por ejemplo, usa primario y sombras personalizadas
+  // Mejorar textTheme con jerarquía más clara
+  textTheme: TextTheme(
+    displayLarge: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+      color: AppColors.neutral900,
+    ),
+    displayMedium: TextStyle(
+      fontSize: 20,
+      fontWeight: FontWeight.w600,
+      color: AppColors.neutral900,
+    ),
+    bodyLarge: TextStyle(
+      fontSize: 16,
+      color: AppColors.neutral800, // Mejor contraste que 900 en fondos claros
+    ),
+    bodyMedium: TextStyle(fontSize: 14, color: AppColors.neutral800),
+    titleLarge: TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: AppColors.neutral900,
+    ),
+    labelLarge: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5),
+  ),
+
+  // Actualizar botones para mejor contraste
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary,
-      foregroundColor: AppColors.textOnPrimaryAcc,
-      shadowColor: AppColors.shadowPrimary,
+      foregroundColor: AppColors.textOnPrimary, // Usar nuevo color de contraste
+      textStyle: ThemeData.light().textTheme.labelLarge?.copyWith(
+        color: AppColors.textOnPrimary,
+      ),
       elevation: 4,
+      shadowColor: AppColors.shadowPrimary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   ),
 
-  // Card con sombra suave
+  // Mejorar tarjetas
   cardTheme: CardTheme(
     color: AppColors.primaryTint40,
     shadowColor: AppColors.shadowBlack,
     elevation: 2,
     margin: const EdgeInsets.all(8),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
   ),
 
-  // InputDecoration (ej. TextField)
+  // Mejorar campos de formulario
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
     fillColor: AppColors.neutral100,
+    labelStyle: TextStyle(color: AppColors.neutral700),
+    floatingLabelStyle: TextStyle(color: AppColors.primary),
     focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: AppColors.primary),
+      borderSide: BorderSide(color: AppColors.primary, width: 1.5),
       borderRadius: BorderRadius.circular(8),
     ),
-    border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+    border: OutlineInputBorder(
+      borderSide: BorderSide(color: AppColors.neutral300),
+      borderRadius: BorderRadius.circular(8),
+    ),
   ),
 
-  // Decoración para container
-
-  // SnackBar usa alert para acciones de error
-  snackBarTheme: SnackBarThemeData(
-    backgroundColor: AppColors.alert,
-    contentTextStyle: TextStyle(color: Colors.white, fontSize: 24),
+  tabBarTheme: TabBarTheme(
+    labelColor: AppColors.neutral900, // Color cuando está seleccionado
+    unselectedLabelColor:
+        AppColors.primaryShade20, // Color cuando no está seleccionado
+    indicator: BoxDecoration(
+      border: Border(bottom: BorderSide(color: AppColors.neutral900, width: 2)),
+    ),
+    indicatorSize: TabBarIndicatorSize.label,
+    labelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+    unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
   ),
 );

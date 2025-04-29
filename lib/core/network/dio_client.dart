@@ -52,18 +52,25 @@ class DioClient {
 
   // Método general para realizar peticiones HTTP
   Future<Response> request(
-    String method,
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-  }) async {
-    return dio.request(
+  String method,
+  String path, {
+  dynamic data,
+  Map<String, dynamic>? queryParameters,
+}) async {
+  try {
+    return await dio.request(
       path,
       data: data,
       queryParameters: queryParameters,
       options: Options(method: method),
     );
+  } on DioException catch (e) {
+    if (e.response?.statusCode == 401) {
+      await logout(); // Limpiar cookies
+    }
+    rethrow; // Propagar el error para manejarlo en los FutureBuilder
   }
+}
 
   Future<bool> hasTokenCookie() async {
     // Esperamos a que se termine de inciar
