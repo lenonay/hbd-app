@@ -148,4 +148,13 @@ final ThemeData appTheme = ThemeData(
     labelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
     unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
   ),
+
+  snackBarTheme: SnackBarThemeData(
+    contentTextStyle: TextStyle(
+      fontSize: 18,
+      color: AppColors.neutral900,
+      fontWeight: FontWeight.bold,
+    ),
+    backgroundColor: AppColors.primaryShade20,
+  ),
 );

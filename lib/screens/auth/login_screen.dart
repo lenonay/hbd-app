@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:hbd_app/core/storage/persistend_storage.dart';
 import 'package:hbd_app/data/user_repository.dart';
+import 'package:hbd_app/models/user.dart';
 import '../../routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,6 +42,11 @@ class LoginScreenState extends State<LoginScreen> {
 
       return;
     }
+
+    // Extraemos la información del usuario
+    final userData = User.fromJson(response["data"]);
+    // La guardamos de forma persistente
+    await PersistentStorage.saveUserData(userData);
 
     Navigator.pushReplacementNamed(context, Routes.home);
   }

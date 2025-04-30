@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '/core/network/dio_client.dart';
 
@@ -13,6 +14,11 @@ void main() async {
   // Cargamos el cliente dio y lo iniciamos
   final dioClient = DioClient();
   await dioClient.init();
+
+  // Bloquear orientacion
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   // Inicializar cliente Dio con CookieJar y verificar sesión aquí si es necesario
   runApp(MyApp());

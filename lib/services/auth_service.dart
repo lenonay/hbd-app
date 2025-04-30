@@ -38,4 +38,28 @@ class AuthService {
       return false;
     }
   }
+
+  Future<Map<String, dynamic>> changePasswd(
+    String currentPasswd,
+    String newPasswd,
+  ) async {
+    try {
+      // 1. Preparamos el cuerpo de la peticion
+      final data = {"currentPasswd": currentPasswd, "newPasswd": newPasswd};
+
+      final response = await _dioClient.request(
+        "PATCH",
+        ApiRoutes.updatePasswd,
+        data: data,
+      );
+
+      if (response.statusCode != 200) {
+        return {"success": false, "error": "Error de conexión"};
+      }
+
+      return response.data;
+    } catch (e) {
+      return {"success": false, "error": e};
+    }
+  }
 }
