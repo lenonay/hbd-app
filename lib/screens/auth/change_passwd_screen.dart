@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:hbd_app/core/theme/app_colors.dart';
 import 'package:hbd_app/routes.dart';
 import 'package:hbd_app/services/auth_service.dart';
+import 'package:hbd_app/theme.dart';
 
 class ChangePasswdScreen extends StatefulWidget {
   const ChangePasswdScreen({super.key});

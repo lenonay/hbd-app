@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:hbd_app/core/storage/persistend_storage.dart';
-import 'package:hbd_app/core/theme/app_colors.dart';
 import 'package:hbd_app/models/user.dart';
 import 'package:hbd_app/services/auth_service.dart';
+import 'package:hbd_app/theme.dart';
 import '../routes.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -60,6 +60,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     void onChangePassword() {
       Navigator.pushNamed(context, Routes.changePasswd);
+    }
+
+    void onHelp() {
+      Navigator.pushNamed(context, Routes.help);
     }
 
     return Scaffold(
@@ -118,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             labelStyle: TextStyle(fontSize: 16),
             child: Icon(Icons.help),
             label: 'Ayuda',
-            onTap: () {},
+            onTap: onHelp,
           ),
         ],
       ),
@@ -150,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.primaryTint20,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -171,11 +175,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     SizedBox(height: 8),
-                    Text("Email: ${userData.email}"),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Email: ',
+                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        children: [
+                          TextSpan(
+                            text: userData.email,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Text("Departamento: ${userData.department}"),
+                    RichText(
+                      text: TextSpan(
+                        text: 'Departamento: ',
+                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        children: [
+                          TextSpan(
+                            text: userData.department.toUpperCase(),
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 8),
-                    Text("F. nacimiento: ${userData.birthdate}"),
+                    RichText(
+                      text: TextSpan(
+                        text: 'F. Nacimiento: ',
+                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        children: [
+                          TextSpan(
+                            text: userData.birthdate,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),

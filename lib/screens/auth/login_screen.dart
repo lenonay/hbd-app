@@ -82,7 +82,7 @@ class LoginScreenState extends State<LoginScreen> {
                     _login(context);
                   }
                 },
-                child: Text('Iniciar Sesión'),
+                child: Text('Iniciar Sesión', style: TextStyle(fontSize: 16)),
               ),
             ],
           ),

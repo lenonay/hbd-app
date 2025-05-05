@@ -67,6 +67,7 @@ final ThemeData appTheme = ThemeData(
       fontSize: 20,
       fontWeight: FontWeight.w600,
       letterSpacing: 0.15,
+      fontFamily: 'Cuprum'
     ),
     iconTheme: IconThemeData(color: AppColors.textOnPrimary),
     elevation: 2,
@@ -79,23 +80,35 @@ final ThemeData appTheme = ThemeData(
       fontSize: 24,
       fontWeight: FontWeight.bold,
       color: AppColors.neutral900,
+      fontFamily: 'Cuprum',
     ),
     displayMedium: TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.w600,
       color: AppColors.neutral900,
+      fontFamily: 'Cuprum',
     ),
     bodyLarge: TextStyle(
-      fontSize: 16,
+      fontSize: 18,
       color: AppColors.neutral800, // Mejor contraste que 900 en fondos claros
+      fontFamily: 'Cuprum',
     ),
-    bodyMedium: TextStyle(fontSize: 14, color: AppColors.neutral800),
+    bodyMedium: TextStyle(
+      fontSize: 16,
+      color: AppColors.neutral800,
+      fontFamily: 'Cuprum',
+    ),
     titleLarge: TextStyle(
       fontSize: 18,
       fontWeight: FontWeight.w600,
       color: AppColors.neutral900,
+      fontFamily: 'Cuprum',
     ),
-    labelLarge: TextStyle(fontWeight: FontWeight.w600, letterSpacing: 0.5),
+    labelLarge: TextStyle(
+      fontWeight: FontWeight.w600,
+      letterSpacing: 0.5,
+      fontFamily: 'Cuprum',
+    ),
   ),
 
   // Actualizar botones para mejor contraste
@@ -105,10 +118,13 @@ final ThemeData appTheme = ThemeData(
       foregroundColor: AppColors.textOnPrimary, // Usar nuevo color de contraste
       textStyle: ThemeData.light().textTheme.labelLarge?.copyWith(
         color: AppColors.textOnPrimary,
+        fontWeight: FontWeight.bold,
+        fontFamily: 'Cuprum',
+        fontSize: 16
       ),
       elevation: 4,
       shadowColor: AppColors.shadowPrimary,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))
     ),
   ),
 
@@ -154,6 +170,7 @@ final ThemeData appTheme = ThemeData(
       fontSize: 18,
       color: AppColors.neutral900,
       fontWeight: FontWeight.bold,
+      fontFamily: 'Cuprum'
     ),
     backgroundColor: AppColors.primaryShade20,
   ),

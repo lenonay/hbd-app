@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hbd_app/core/theme/app_colors.dart';
 import 'package:hbd_app/models/post.dart';
 import 'package:hbd_app/routes.dart';
+import 'package:hbd_app/theme.dart';
 
 class FeaturedPostItem extends StatefulWidget {
   final Post post;

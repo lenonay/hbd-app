@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hbd_app/models/post.dart';
 import 'package:hbd_app/screens/auth/change_passwd_screen.dart';
 import 'package:hbd_app/screens/auth/unauth_screen.dart';
+import 'package:hbd_app/screens/help_screen.dart';
 import 'package:hbd_app/screens/post_viewer_screen.dart';
 import 'screens/auth/login_screen.dart';
 import 'screens/home_screen.dart';
@@ -20,6 +21,7 @@ class Routes {
   static const viewer = '/viewer';
   static const unauth = '/unauth';
   static const changePasswd = "/profile/changePasswd";
+  static const help = "/profile/help";
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -36,6 +38,7 @@ class Routes {
       },
       unauth: (context) => UnAuthScreen(),
       changePasswd: (context) => ChangePasswdScreen(),
+      help: (context) => HelpScreen()
     };
   }
 }

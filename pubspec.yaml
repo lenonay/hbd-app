@@ -19,6 +19,7 @@ dependencies:
   path_provider: ^2.1.5
   shared_preferences: ^2.5.3
   flutter_speed_dial: ^7.0.0
+  ticket_widget: ^1.0.2
 
 dev_dependencies:
   flutter_test:
@@ -35,3 +36,9 @@ flutter:
   assets:
     - .env
     - assets/images/
+  fonts:
+    - family: 'Cuprum'
+      fonts:
+       - asset: 'fonts/Cuprum.ttf'
+       - asset: 'fonts/Cuprum-Italic.ttf'
+         style: italic
