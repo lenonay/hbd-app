@@ -4,9 +4,9 @@ class UserRepository {
   // Instanciamos el servicio de autenticación
   final AuthService authService = AuthService();
 
-  Future<Map<String, dynamic>> login(String email, String passwd) async {
+  Future<Map<String, dynamic>> login(String email, String passwd, String version) async {
     // Hacemos la petición para inicar sesión
-    final response = await authService.login(email, passwd);
+    final response = await authService.login(email, passwd, version);
 
     return response.data;
   }

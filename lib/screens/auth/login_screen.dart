@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:hbd_app/core/storage/persistend_storage.dart';
+import 'package:hbd_app/data/env.dart';
 import 'package:hbd_app/data/user_repository.dart';
 import 'package:hbd_app/models/user.dart';
 import '../../routes.dart';
@@ -25,6 +26,7 @@ class LoginScreenState extends State<LoginScreen> {
     final response = await userRepository.login(
       _userController.text,
       _passController.text,
+      Env.version
     );
 
     if (!mounted) return;

@@ -16,8 +16,8 @@ class AuthService {
 
   final DioClient _dioClient = DioClient();
 
-  Future<Response> login(String email, String passwd) async {
-    final data = {"email": email, "passwd": passwd};
+  Future<Response> login(String email, String passwd, String version) async {
+    final data = {"email": email, "passwd": passwd, "version": version};
 
     final response = await _dioClient.request(
       "POST",
