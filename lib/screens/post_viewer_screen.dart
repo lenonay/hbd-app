@@ -8,10 +8,6 @@ class PostViewerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var image =
-    //     (post.bannerURL == null)
-    //         ? Image.asset("assets/images/bahia-logo.png")
-    //         : Image.network(post.bannerURL!);
     return Scaffold(
       appBar: AppBar(title: Text(post.title)),
       body: SizedBox(
@@ -21,6 +17,11 @@ class PostViewerScreen extends StatelessWidget {
           child: Column(
             children: [
               imagesCorrousel(post),
+              SizedBox(height: 8),
+              Text(
+                post.date,
+                style: TextStyle(fontStyle: FontStyle.italic),
+              ), // Fecha de publicación
               SizedBox(height: 20),
               Text(post.content, style: TextStyle(fontSize: 20)),
             ],
@@ -58,10 +59,21 @@ class PostViewerScreen extends StatelessWidget {
         child: Container(
           height: 200,
           width: 300, // Ancho fijo para consistencia
+          decoration: BoxDecoration(
+            boxShadow: const [
+              BoxShadow(
+                color: Colors.black26,
+                offset: Offset(0, 0),
+                blurRadius: 10,
+                spreadRadius: 2,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(12),
+          ),
           margin: const EdgeInsets.symmetric(horizontal: 8),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: Image.network(post.media.first["url"], fit: BoxFit.cover),
+            child: Image.network(post.media.first, fit: BoxFit.cover),
           ),
         ),
       );
@@ -85,9 +97,10 @@ class PostViewerScreen extends StatelessWidget {
                       ? (MediaQuery.of(context).size.width - 300) / 2
                       : 0,
             ),
+
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(post.media[index]["url"], fit: BoxFit.contain),
+              child: Image.network(post.media[index], fit: BoxFit.contain),
             ),
           );
         },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hbd_app/data/env.dart';
 import '/routes.dart';
 
 class UnAuthScreen extends StatelessWidget {
@@ -63,6 +64,11 @@ class UnAuthScreen extends StatelessWidget {
                 Navigator.pushReplacementNamed(context, Routes.login);
               },
               child: Text("Iniciar Sesión"),
+            ),
+            Spacer(flex: 1),
+            Text(
+              'Versión: ${Env.version}',
+              style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ],
         ),

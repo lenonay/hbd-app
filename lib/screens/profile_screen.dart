@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:hbd_app/core/mixins/auth_mixin.dart';
 
 import 'package:hbd_app/core/storage/persistend_storage.dart';
+import 'package:hbd_app/data/env.dart';
 import 'package:hbd_app/models/user.dart';
+import 'package:hbd_app/screens/auth/unauth_screen.dart';
 import 'package:hbd_app/services/auth_service.dart';
 import 'package:hbd_app/theme.dart';
+import 'package:hbd_app/widgets/auth/auth_wrapper.dart';
 import '../routes.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -16,8 +20,25 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen> with AuthMixin {
   final AuthService authService = AuthService();
+
+  @override
+  Widget build(BuildContext context) {
+    return AuthWrapper(
+      authFuture: checkAuth(),
+      authBuilder:
+          (context) => Screen(authService: authService, mounted: mounted),
+      unAuthBuilder: (context) => UnAuthScreen(),
+    );
+  }
+}
+
+class Screen extends StatelessWidget {
+  const Screen({super.key, required this.authService, required this.mounted});
+
+  final AuthService authService;
+  final bool mounted;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +55,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         final userData = snapshot.data!;
 
-        return profileViewer(context, userData);
+        return ProfileViewer(
+          authService: authService,
+          mounted: mounted,
+          context: context,
+          userData: userData,
+        );
       },
     );
   }
+}
 
-  Scaffold profileViewer(BuildContext context, User userData) {
+class ProfileViewer extends StatelessWidget {
+  const ProfileViewer({
+    super.key,
+    required this.authService,
+    required this.mounted,
+    required this.context,
+    required this.userData,
+  });
+
+  final AuthService authService;
+  final bool mounted;
+  final BuildContext context;
+  final User userData;
+
+  @override
+  Widget build(BuildContext context) {
     void onLogout() async {
       final logout = await authService.logout();
 
@@ -178,7 +220,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'Email: ',
-                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        style: TextStyle(
+                          color: AppColors.neutral900,
+                          fontSize: 16,
+                        ),
                         children: [
                           TextSpan(
                             text: userData.email,
@@ -191,7 +236,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'Departamento: ',
-                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        style: TextStyle(
+                          color: AppColors.neutral900,
+                          fontSize: 16,
+                        ),
                         children: [
                           TextSpan(
                             text: userData.department.toUpperCase(),
@@ -204,7 +252,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     RichText(
                       text: TextSpan(
                         text: 'F. Nacimiento: ',
-                        style: TextStyle(color: AppColors.neutral900, fontSize: 16),
+                        style: TextStyle(
+                          color: AppColors.neutral900,
+                          fontSize: 16,
+                        ),
                         children: [
                           TextSpan(
                             text: userData.birthdate,
@@ -215,6 +266,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
+              ),
+              Spacer(flex: 1),
+              Text(
+                'Versión: ${Env.version}',
+                style: TextStyle(fontStyle: FontStyle.italic),
               ),
             ],
           ),
