@@ -4,6 +4,7 @@ import 'package:hbd_app/core/network/api_routes.dart';
 import 'package:hbd_app/theme.dart';
 import 'package:hbd_app/widgets/auth/auth_wrapper.dart';
 import 'package:hbd_app/screens/auth/unauth_screen.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'news_screen.dart';
 import 'info_screen.dart';
 import 'coupons_screen.dart';
@@ -32,6 +33,11 @@ class _HomeScreenState extends State<HomeScreen> with AuthMixin {
   Future<void> _checkForNotification() async {
     if (_checkedNotification) return;
     _checkedNotification = true;
+
+    // Comprobamos que haya internet
+    if(!(await InternetConnection().hasInternetAccess)){
+      return;
+    }
 
     // Hacemos la consulta a la API
     final response = await dioClient.request("GET", ApiRoutes.notification);
