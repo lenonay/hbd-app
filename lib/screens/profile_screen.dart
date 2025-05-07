@@ -178,12 +178,12 @@ class ProfileViewer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Material(
-                elevation: 8,
+                elevation: 5,
                 shape: CircleBorder(),
                 shadowColor: AppColors.primaryShade20,
                 child: CircleAvatar(
-                  radius: 75, // 150/2
-                  backgroundImage: AssetImage("assets/images/pfp.jpg"),
+                  radius: 60, // 150/2
+                  child: Icon(Icons.person_outlined, size: 96,)
                 ),
               ),
               SizedBox(height: 10),
