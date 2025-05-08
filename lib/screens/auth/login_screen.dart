@@ -66,8 +66,8 @@ class LoginScreenState extends State<LoginScreen> {
             children: [
               TextFormField(
                 controller: _userController,
-                decoration: InputDecoration(labelText: 'Usuario'),
-                validator: (v) => v!.isEmpty ? 'Introduce un usuario' : null,
+                decoration: InputDecoration(labelText: 'Email'),
+                validator: (v) => v!.isEmpty ? 'Introduce un email' : null,
               ),
               SizedBox(height: 16),
               TextFormField(

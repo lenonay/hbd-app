@@ -15,7 +15,7 @@ class CouponsRepository {
 
     final res = response.data;
 
-    if(res["success"] == false || res["data"].length == 0) {
+    if(res["success"] == false) {
       return null;
     }
 

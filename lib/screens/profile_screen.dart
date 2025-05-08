@@ -108,6 +108,23 @@ class ProfileViewer extends StatelessWidget {
       Navigator.pushNamed(context, Routes.help);
     }
 
+    Color avatarBackground;
+    Color infoBackground;
+
+    switch(userData.rol){
+      case 'duke':
+        avatarBackground = AppColors.duke;
+        infoBackground = AppColors.dukeAcc;
+        break;
+      case 'admin':
+        avatarBackground = AppColors.secondary;
+        infoBackground = AppColors.secondaryAcc;
+        break;
+      default:
+        avatarBackground = AppColors.primary;
+        infoBackground = AppColors.primaryTint20;
+    }
+
     return Scaffold(
       floatingActionButton: SpeedDial(
         icon: Icons.person,
@@ -182,6 +199,7 @@ class ProfileViewer extends StatelessWidget {
                 shape: CircleBorder(),
                 shadowColor: AppColors.primaryShade20,
                 child: CircleAvatar(
+                  backgroundColor: avatarBackground,
                   radius: 60, // 150/2
                   child: Icon(Icons.person_outlined, size: 96,)
                 ),
@@ -196,7 +214,7 @@ class ProfileViewer extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.primaryTint20,
+                  color: infoBackground,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(

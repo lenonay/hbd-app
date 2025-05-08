@@ -4,6 +4,7 @@ import 'package:hbd_app/data/post_repository.dart';
 import 'package:hbd_app/routes.dart';
 import 'package:hbd_app/widgets/auth/auth_wrapper.dart';
 import 'package:hbd_app/screens/auth/unauth_screen.dart';
+import 'package:hbd_app/widgets/empty_viewer.dart';
 import 'package:hbd_app/widgets/posts/post_viewer.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -54,6 +55,10 @@ class Screen extends StatelessWidget {
 
           final posts = snapshot.data!;
 
+          // Si no tenemos posts en la lista
+          if (posts.isEmpty) {
+            return EmptyViewer(item: "noticias");
+          }
           return PostViewer(posts: posts);
         },
       ),

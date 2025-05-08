@@ -5,6 +5,7 @@ import 'package:hbd_app/models/post.dart';
 import 'package:hbd_app/routes.dart';
 import 'package:hbd_app/screens/auth/unauth_screen.dart';
 import 'package:hbd_app/widgets/auth/auth_wrapper.dart';
+import 'package:hbd_app/widgets/empty_viewer.dart';
 import 'package:hbd_app/widgets/posts/post_viewer.dart';
 
 class InfoScreen extends StatefulWidget {
@@ -53,6 +54,11 @@ class _InfoScreenState extends State<InfoScreen> with AuthMixin {
         }
 
         final posts = snapshot.data!;
+
+        // Si no tenemos posts en la lista
+        if (posts.isEmpty) {
+          return EmptyViewer(item: "información");
+        }
 
         return PostViewer(posts: posts);
       },

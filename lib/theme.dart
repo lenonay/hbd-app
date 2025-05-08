@@ -18,6 +18,11 @@ class AppColors {
   static const primaryTint20 = Color(0xFFF5E5D0); // #f5e5d0
   static const primaryTint40 = Color(0xFFF0DDB5); // #f0ddb5
   static const primaryShade20 = Color(0xFFA87D56); // #a87d56
+  
+  // Duke
+  static const duke = Color(0xFF9662AA); // #813d9c
+  static const dukeAcc = Color(0xFFA487AF); // #813d9c
+
 
   // Secundarios
   static const secondary = Color(0xFFAAB38E); // #aab38e
@@ -39,6 +44,7 @@ class AppColors {
   static const textOnPrimary = Color(
     0xFF2D2216,
   ); // Contraste mejorado para primary
+  static const shadowDuke = Color(0x30B45FD6);
 }
 
 final ThemeData appTheme = ThemeData(
